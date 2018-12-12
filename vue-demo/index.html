@@ -9,22 +9,109 @@
 		<input type="text" v-model="word">
 		<p>{{word}}</p>
 		<button v-on:click="sayHi">change model</button>
+		<p>Original message:"{{message}}"</p>
+		<p>Computed reversed message:"{{reverseMessage}}"</p>
+		<p>Reversed message: "{{ reversedMessage() }}"</p>
+		<div class="watch-example">
+			<p>
+				Ask a yes/no question:
+				<input v-model="question">
+			</p>
+			<p>{{answer}}</p>
+
+		</div>
+		<div v-bind:class="classObject"></div>
+		<div v-bind:style="styleObject">绑定样式</div>
+		
+		<div v-bind:style="{display:['-webkit-box','-ms-flexbox','flex']}"></div> 
+		<ul>
+			<li v-for="(item,index) in items">
+				{{ parentMessage }} -{{index}} - {{ item.message }}
+			</li>
+		</ul>
+		<div v-for="(value, key, index) in styleObject">
+			{{ index }}. {{ key }}: {{ value }}
+		</div>
+
 	</div>
 
-	<script src="http://cdn.bootcss.com/vue/1.0.25/vue.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+
+	<script src="https://cdn.jsdelivr.net/npm/axios@0.12.0/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.13.1/lodash.min.js"></script>
 	<script>
 		var vm = new Vue({
 			el: '#vue-app',
 			data: {
-				word: 'Hello World!'
+				word: 'Hello World!',
+				message:'hello',
+				question:'',
+				answer:'I cannot give you an answer until you ask a question!',
+				isActive:true,
+				error:false,
+				styleObject:{
+					color:'red',
+					fontSize:30
+				},
+				parentMessage: 'Parent',
+				items: [
+					{ message: 'Foo' },
+					{ message: 'Bar' }
+				]
+			},
+			computed:{
+				reverseMessage:function(){
+					return this.message.split('').reverse().join('');
+				},
+				classObject:function(){
+					return {
+						active:this.isActive && !this.error,
+						'text-danger':this.error && this.error.type ==='fatal'
+					}
+				}
+			},
+			watch:{  // 提供一个通用的方法来响应数据的变化
+               question:function(newQuestion,oldQuestion){
+				   this.answer='Waiting for you to stop typing...'
+				   this.debouncedGetAnswer()
+			   }
+			},
+			created:function(){
+				// `_.debounce` 是一个通过 Lodash 限制操作频率的函数。
+				// 在这个例子中，我们希望限制访问 yesno.wtf/api 的频率
+				// AJAX 请求直到用户输入完毕才会发出。想要了解更多关于
+				// `_.debounce` 函数 (及其近亲 `_.throttle`) 的知识，
+				// 请参考：https://lodash.com/docs#debounce
+				this.debouncedGetAnswer = _.debounce(this.getAnswer, 500)
+
 			},
 
 			methods: {
 				sayHi: function() {
 					this.word = 'Hi, everybody!';
+				},
+				reversedMessage:function(){
+					return this.message.split('').reverse().join('');
+				},
+				getAnswer:function(){
+					if(this.question.indexOf('?')===-1){
+						this.answer = 'Questions usually contain a question mark. ;-)'
+                          return
+					}
+					this.answer = 'Thinking...'
+					var vm = this
+					axios.get('https://yesno.wtf/api')
+						.then(function (response) {
+						vm.answer = _.capitalize(response.data.answer)
+						})
+						.catch(function (error) {
+						vm.answer = 'Error! Could not reach the API. ' + error
+						})
 				}
+				
 			}
 		});
+	//	vm.message="Goodbye"
 	</script>
 </body>
 </html>
