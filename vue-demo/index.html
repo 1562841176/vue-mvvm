@@ -3,6 +3,14 @@
 <head>
 	<meta charset="UTF-8">
 	<title>vue-demo</title>
+	<style>
+		.fade-enter-active, .fade-leave-active {
+		 transition: opacity .5s;
+		}
+		.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+		 opacity: 0;
+		}
+	</style>
 </head>
 <body>
 	<div id="vue-app">
@@ -53,18 +61,45 @@
 		<blog-post title="my journey with Vue"></blog-post>
 		<alert-box>Something bad happened.</alert-box>
 		<base-checkbox v-model="lovingVue"></base-checkbox>
+		<div id="demo">
+			<button v-on:click="show=!show">Toggle</button>
+			<transition name="fade">
+				<p v-if="show">hello</p>
+			</transition>
+		</div>
+		<div id="example-4">
+				<button @click="flagShow = !flagShow">
+				  Toggle
+				</button>
+				<transition
+				  v-on:before-enter="beforeEnter"
+				  v-on:enter="enter"
+				  v-on:leave="leave"
+				  v-bind:css="false"
+				>
+				  <p v-if="flagShow">
+					Demo
+				  </p>
+				</transition>
+			  </div>
 
 	</div>
 
 	<script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
 
 	<script src="https://cdn.jsdelivr.net/npm/axios@0.12.0/dist/axios.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/lodash@4.13.1/lodash.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/lodash@4.13.1/lodash.min.js"></script>
+	<!--
+Velocity 和 jQuery.animate 的工作方式类似，也是用来实现 JavaScript 动画的一个很棒的选择
+-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/velocity/1.2.3/velocity.min.js"></script>
 	<script>
 		var vm = new Vue({
 			el: '#vue-app',
 			components:{},
 			data: {
+				show:true,
+				flagShow:false,
 				word: 'Hello World!',
 				message:'hello',
 				question:'',
@@ -141,7 +176,26 @@
 				},
 				onScroll:function(){
 					console.log("onScroll");
+				},
+				beforeEnter: function (el) {
+					el.style.opacity = 0
+					el.style.transformOrigin = 'left'
+				},
+				enter: function (el, done) {
+					Velocity(el, { opacity: 1, fontSize: '1.4em' }, { duration: 300 })
+					Velocity(el, { fontSize: '1em' }, { complete: done })
+				},
+				leave: function (el, done) {
+					Velocity(el, { translateX: '15px', rotateZ: '50deg' }, { duration: 600 })
+					Velocity(el, { rotateZ: '100deg' }, { loop: 2 })
+					Velocity(el, {
+						rotateZ: '45deg',
+						translateY: '30px',
+						translateX: '30px',
+						opacity: 0
+					}, { complete: done })
 				}
+
 				
 			}
 		});
