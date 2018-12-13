@@ -68,20 +68,20 @@
 			</transition>
 		</div>
 		<div id="example-4">
-				<button @click="flagShow = !flagShow">
-				  Toggle
-				</button>
-				<transition
-				  v-on:before-enter="beforeEnter"
-				  v-on:enter="enter"
-				  v-on:leave="leave"
-				  v-bind:css="false"
-				>
-				  <p v-if="flagShow">
-					Demo
-				  </p>
-				</transition>
-			  </div>
+			<button @click="flagShow = !flagShow">
+				Toggle
+			</button>
+			<transition
+				v-on:before-enter="beforeEnter"
+				v-on:enter="enter"
+				v-on:leave="leave"
+				v-bind:css="false"
+			>
+				<p v-if="flagShow">
+				 Demo
+				</p>
+			</transition>
+		</div>
 
 	</div>
 
