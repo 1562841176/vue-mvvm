@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>vue-demo</title>
+	<style>
+		
+	</style>
+</head>
+
+<body>
+	<div id="filter-demo">
+		{{message|capitalize}}
+
+
+	</div>
+	
+
+	<script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.14.1/lodash.min.js"></script>
+	<script>
+		var vm = new Vue({
+			el: '#filter-demo',
+			data: {
+				message: 'hello'
+
+			},
+			filters:{
+				capitalize:function(value){
+					if(!value) return '';
+					value=value.toString();
+					return value.charAt(0).toUpperCase()+value.slice(1)
+				}
+
+			},
+			methods: {
+				shuffle: function () {
+					this.items = _.shuffle(this.items)
+				}
+			}
+		});
+	</script>
+</body>
+
+</html>
