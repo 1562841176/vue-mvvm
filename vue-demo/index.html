@@ -52,6 +52,7 @@
 		<button-counter></button-counter>
 		<blog-post title="my journey with Vue"></blog-post>
 		<alert-box>Something bad happened.</alert-box>
+		<base-checkbox v-model="lovingVue"></base-checkbox>
 
 	</div>
 
@@ -77,7 +78,8 @@
 				parentMessage: 'Parent',
 				items: ['a', 'b', 'c'],
 				numbers:[1,2,3,4,5,6],
-				selected:''
+				selected:'',
+				lovingVue:true
 			},
 			computed:{
 				reverseMessage:function(){
@@ -166,6 +168,22 @@
 	Vue.component('alert-box',{
 		template:'<div><strong>Error</strong><slot></slot></div>'
 	})
+	Vue.component('base-checkbox', {
+        model: {
+          prop: 'checked',
+          event: 'change'
+        },
+        props: {
+          checked: Boolean
+        },
+        template: `
+          <input
+            type="checkbox"
+            v-bind:checked="checked"
+            v-on:change="$emit('change', $event.target.checked)"
+          >
+        `
+      })
 	</script>
 </body>
 </html>
