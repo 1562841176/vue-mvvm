@@ -1,4 +1,4 @@
-# vueProject
+# vue-mvvm [双向绑定原理](https://segmentfault.com/a/1190000006599500) 
 对vue的认识
 
 Vue 不能检测对象属性的添加或删除
