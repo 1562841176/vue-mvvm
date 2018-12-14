@@ -1,3 +1,5 @@
+//指令解析器   对每个元素节点的指令进行扫描和解析，根据指令模板替换数据，以及绑定相应的更新函数
+
 function Compile(el, vm) {
     this.$vm = vm;
     this.$el = this.isElementNode(el) ? el : document.querySelector(el);

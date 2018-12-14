@@ -6,6 +6,7 @@ function MVVM(options) {
     // 数据代理
     // 实现 vm.xxx -> vm._data.xxx
     Object.keys(data).forEach(function(key) {
+        console.log("key:"+key);
         me._proxyData(key);
     });
 

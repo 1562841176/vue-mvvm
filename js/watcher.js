@@ -1,3 +1,5 @@
+// Watcher 订阅者作为Observer和Compile之前通信的桥梁：
+
 function Watcher(vm, expOrFn, cb) {
     this.cb = cb;
     this.vm = vm;
@@ -40,8 +42,7 @@ Watcher.prototype = {
         // 这一步是在 this.get() --> this.getVMVal() 里面完成，forEach时会从父级开始取值，间接调用了它的getter
         // 触发了addDep(), 在整个forEach过程，当前wacher都会加入到每个父级过程属性的dep
         // 例如：当前watcher的是'child.child.name', 那么child, child.child, child.child.name这三个属性的dep都会加入当前watcher
-        console.log("addDep");
-        console.log(dep);
+
         if (!this.depIds.hasOwnProperty(dep.id)) {
             dep.addSub(this);
             this.depIds[dep.id] = dep;
@@ -60,9 +61,7 @@ Watcher.prototype = {
         var exps = exp.split('.');
 
         return function(obj) {
-            console.log("getter");
-            console.log(obj);
-            console.log(exps)
+        
             for (var i = 0, len = exps.length; i < len; i++) {
                 if (!obj) return;
                 obj = obj[exps[i]];

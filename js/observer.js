@@ -1,3 +1,5 @@
+// 实现一个数据监听器Observer,能够对数据对象的所有属性进行监听，如有变动可拿到最新值并通知订阅者
+
 function Observer(data) {
     this.data = data;
     this.walk(data);
@@ -32,8 +34,10 @@ Observer.prototype = {
                     return;
                 }
                 val = newVal;
+               
                 // 新的值是object的话，进行监听
                 childObj = observe(newVal);
+                console.log("childObj:"+childObj);
                 // 通知订阅者
                 dep.notify();
             }
