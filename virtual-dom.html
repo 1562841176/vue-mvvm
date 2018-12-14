@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>virtual-dom</title>
+</head>
+
+<body>
+
+    <div>
+        <ul><li>1</li><li>2</li><li>3</li><li>4</li><li>5</li></ul>
+    </div>
+
+    <script src="./js/element.js"></script>
+    <script>
+        // let ul = document.querySelector('ul');
+        // // 删除第三个 li
+        // ul.childNodes[2].remove()
+        // // 将第四个 li 和第五个交换位置
+        // let fromNode = ul.childNodes[4]
+        // let toNode = ul.childNodes[3]
+        // let cloneFromNode = fromNode.cloneNode(true)
+        // let cloenToNode = toNode.cloneNode(true)
+        // ul.replaceChild(cloneFromNode, toNode)
+        // ul.replaceChild(cloenToNode, fromNode)
+        let test4 = new Element('div', { class: 'my-div' }, ['test4'])
+    </script>
+
+</body>
+
+</html>
