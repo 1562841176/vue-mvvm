@@ -24,6 +24,7 @@ Observer.prototype = {
             enumerable: true, // 可枚举
             configurable: false, // 不能再define
             get: function() {
+                console.log('get value')
                 if (Dep.target) {
                     dep.depend();
                 }
