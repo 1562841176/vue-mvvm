@@ -33,20 +33,12 @@
         // let cloenToNode = toNode.cloneNode(true)
         // ul.replaceChild(cloneFromNode, toNode)
         // ul.replaceChild(cloenToNode, fromNode)
-        let test4 = new Element('div', {
-            class: 'my-div'
-        }, ['test4'])
-        let test5 = new Element('ul', {
-            class: 'my-div'
-        }, ['test5'])
+        let test4 = new Element('div', {class: 'my-div'}, ['test4'])
+        let test5 = new Element('ul', {class: 'my-div'}, ['test5'])
 
-        let test1 = new Element('div', {
-            class: 'my-div'
-        }, [test4])
+        let test1 = new Element('div', {class: 'my-div'}, [test4])
 
-        let test2 = new Element('div', {
-            id: '11'
-        }, [test5, test4])
+        let test2 = new Element('div', { id: '11'}, [test5, test4])
         let root = test1.render()
 
         let pathchs = diff(test1, test2)

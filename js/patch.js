@@ -51,7 +51,7 @@ function changeDom(node, changes, noChild) {
             case stateEnums.ChangeText:
                 break;
             case stateEnums.Remove:
-                node.childNodes.splice(change.index).remove()
+                node.childNodes[change.index].remove()
                 break;
             case stateEnums.Insert:
                 let dom;

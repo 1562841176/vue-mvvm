@@ -7,7 +7,7 @@
 function diff(oldDomTree, newDomTree) {
     let pathchs = {}; //用于记录差异
     dfs(oldDomTree, newDomTree, 0, pathchs); // 一开始的索引为0
-    return pathches;
+    return pathchs;
 }
 
 function dfs(oldNode, newNode, index, pathchs) {
@@ -17,7 +17,7 @@ function dfs(oldNode, newNode, index, pathchs) {
     // 2.新的节点的 tagName 和 `key` 和旧的不同，就替换
     // 3.新的节点的 tagName 和 key（可能都没有） 和旧的相同，开始遍历子树
 
-    if (!newDomTree) {} else if (newNode.tag === oldDomTree.tag && newNode.key === oldNode.key) {
+    if (!newNode) {} else if (newNode.tag === oldNode.tag && newNode.key === oldNode.key) {
         // 判断属性是否变更
         let props = diffProps(oldNode.props, newNode.props);
         if (props.length) {
@@ -39,7 +39,7 @@ function dfs(oldNode, newNode, index, pathchs) {
 
     if (curPatches.length) {
         if (pathchs[index]) {
-            pathchs[index] = patches[index].concat(curPatches)
+            pathchs[index] = pathchs[index].concat(curPatches)
         } else {
             pathchs[index] = curPatches;
         }
@@ -61,7 +61,7 @@ function diffProps(oldProps, newProps) {
 
     let change = [];
     for (const key in oldProps) {
-        if (oldProps.hasOwnProperty(key) && !keyProps[key]) {
+        if (oldProps.hasOwnProperty(key) && !oldProps[key]) {
             change.push({
                 prop: key
             })
@@ -70,7 +70,7 @@ function diffProps(oldProps, newProps) {
 
     for (const key in newProps) {
         if (newProps.hasOwnProperty(key)) {
-            const prop = newProps(key);
+            const prop = newProps[key];
             if (oldProps[key] && oldProps[key] !== newProps[key]) {
                 change.push({
                     prop: key,
@@ -130,7 +130,7 @@ function listDiff(oldList, newList, index, patches) {
         // 判断当前元素是否为空，为空表示需要删除
         if(!list[i]){
            list.splice(i,1)
-           change.push({
+           changes.push({
                type:stateEnums.Remove,
                index:i
            }) 
@@ -170,7 +170,7 @@ function listDiff(oldList, newList, index, patches) {
 }
 
 function getKeys(list) {
-    let key = [];
+    let keys = [];
     let text
     list && list.forEach(item => {
         let key
@@ -179,9 +179,9 @@ function getKeys(list) {
         } else if (item instanceof Element) {
             key = item.key
         }
-        key.push(key)
+        keys.push(key)
     });
-    return key;
+    return keys;
 }
 
 // 遍历子元素打标识
