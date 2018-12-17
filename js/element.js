@@ -37,7 +37,7 @@ class Element{
         let el=document.createElement(tag);
         //设置节点属性
         for(const key in props){
-            if(this.props.hasOwnPropety(key)){
+            if(this.props.hasOwnProperty(key)){
                 const value =props[key];
                 el.setAttribute(key,value);
             }
@@ -59,6 +59,7 @@ class Element{
                 }else{
                     child=document.createTextNode(element)
                 }
+                el.appendChild(child);
             });
 
         }
