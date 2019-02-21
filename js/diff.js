@@ -61,7 +61,7 @@ function diffProps(oldProps, newProps) {
 
     let change = [];
     for (const key in oldProps) {
-        if (oldProps.hasOwnProperty(key) && !oldProps[key]) {
+        if (oldProps.hasOwnProperty(key) && !newProps[key]) {
             change.push({
                 prop: key
             })
