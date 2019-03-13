@@ -13,7 +13,6 @@ class Element{
         } else if(isString(children)){
             this.key=children;
             this.children=null;
-    
         }
         if(key) this.key=key;
     }

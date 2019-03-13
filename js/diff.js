@@ -7,6 +7,7 @@
 function diff(oldDomTree, newDomTree) {
     let pathchs = {}; //用于记录差异
     dfs(oldDomTree, newDomTree, 0, pathchs); // 一开始的索引为0
+   console.log(pathchs);
     return pathchs;
 }
 
