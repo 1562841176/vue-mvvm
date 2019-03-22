@@ -13,9 +13,9 @@
         {{someStr}}
         <span v-text="child.someStr"></span>
     </p> -->
-    <p>{{getHelloWord}}</p>
+    <!-- <p>{{getHelloWord}}</p>
     <p v-html="htmlStr"></p>
-    <button v-on:click="clickBtn">change model</button>
+    <button v-on:click="clickBtn">change model</button> -->
    
 </div>
 
@@ -29,8 +29,8 @@
         el: '#mvvm-app',
         data: {
             someStr: 'hello ',
-            className: 'btn',
-            htmlStr: '<span style="color: #f00;">red</span>',
+            // className: 'btn',
+            // htmlStr: '<span style="color: #f00;">red</span>',
             child: {
                 someStr: 'World !'
             }

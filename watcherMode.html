@@ -1,33 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <title>观察者模式（发布-订阅）</title>
+    <title>观察者模式</title>
 </head>
+
 <body>
-
-<div id="mvvm-app">
-   
-   
-</div>
-
-<!-- <script src="http://cdn.bootcss.com/vue/1.0.25/vue.js"></script> -->
-<script src="./js/onserver.js"></script>
-<script>
-    //来，订阅一个
-    Observer.subscribe('subCake', function (subTip, data) {
-        console.log(subTip + ": " + data);
-    });
-    //来，再订阅一个
-    Observer.subscribe('subCake', function (subTip, data) {
-        console.log(subTip + "我来啦.." + data);
-    });
-    //0不吃了
-    Observer.unsubscribe('0')
-    //发布通知
-    Observer.publish('subCake', '快来分蛋糕...');
-</script>
-
-
+    <div id="mvvm-app">
+    </div>
+    <script>
+        var Event = {
+            // 通过on接口监听事件eventName
+            // 如果事件eventName被触发，则执行callback回调函数
+            on: function (eventName, callback) {
+                //我的代码
+                if (!this.handles) {
+                    this.handles = {};
+                }
+                if (!this.handles[eventName]) {
+                    this.handles[eventName] = [];
+                }
+                this.handles[eventName].push(callback);
+            },
+            // 触发事件 eventName
+            emit: function (eventName) {
+                //你的代码
+                if (this.handles[arguments[0]]) {
+                    for (var i = 0; i < this.handles[arguments[0]].length; i++) {
+                        this.handles[arguments[0]][i](arguments[1]);
+                    }
+                }
+            }
+        };
+        Event.on('test', function (result) {
+            console.log(result);
+        });
+        Event.on('test', function () {
+            console.log('test');
+        });
+        Event.emit('test', 'hello world'); // 输出 'hello world' 和 'test'
+    </script>
 </body>
+
 </html>

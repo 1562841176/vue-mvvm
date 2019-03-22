@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>发布-订阅模式</title>
+</head>
+
+<body>
+    <div id="mvvm-app">
+    </div>
+
+    <script src="./js/subscriber.js"></script>
+    <script>
+        //来，订阅一个
+        Observer.subscribe('subCake', function (subTip, data) {
+            console.log(subTip + ": " + data);
+        });
+        //来，再订阅一个
+        Observer.subscribe('subCake', function (subTip, data) {
+            console.log(subTip + "我来啦.." + data);
+        });
+        //0不吃了
+        Observer.unsubscribe('0')
+        //发布通知
+        Observer.publish('subCake', '快来分蛋糕...');
+    </script>
+</body>
+
+</html>
